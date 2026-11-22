@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>多播聊天室</title>
+  <link rel="stylesheet" href="/static/chat.css">
+  <script defer src="/static/chat.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div><p id="network" class="network"></p><h1>多播聊天室</h1></div>
+    <p id="identity" class="identity">连接中</p>
+  </header>
+  <main>
+    <section id="lobby" class="panel lobby" hidden>
+      <h2>进入房间</h2>
+      <button id="create" type="button">创建房间</button>
+      <form id="join-form">
+        <label for="invitation">房间邀请</label>
+        <input id="invitation" required autocomplete="off" placeholder="粘贴房主提供的邀请">
+        <button type="submit">申请加入</button>
+      </form>
+      <div id="lobby-contact">
+        <details id="outside-contact" class="outside-contact">
+          <summary>组外联系</summary>
+          <form id="contact-form">
+            <label id="contact-label" for="contact-text">公开留言（填写上方房间邀请）</label>
+            <input id="contact-text" required autocomplete="off" placeholder="通知组内成员">
+            <button type="submit">发送公开留言</button>
+          </form>
+        </details>
+      </div>
+    </section>
+    <div id="room" class="room" hidden>
+      <section class="panel conversation">
+        <header class="section-head"><h2>聊天</h2><span id="epoch" class="muted"></span></header>
+        <div id="messages" class="messages" role="log" aria-label="聊天消息" tabindex="0"></div>
+        <form id="chat-form" class="composer">
+          <label for="chat-text" class="sr-only">消息</label>
+          <input id="chat-text" required autocomplete="off" placeholder="写一条消息">
+          <button id="send" type="submit">发送</button>
+        </form>
+      </section>
+      <aside class="panel people">
+        <header class="section-head"><h2>成员</h2><button id="leave" class="quiet" type="button">退出房间</button></header>
+        <p id="room-status" role="status"></p>
+        <div id="waiting-contact"></div>
+        <button id="copy" class="quiet" type="button" hidden>复制邀请</button>
+        <input id="copy-value" aria-label="邀请文本" readonly hidden>
+        <ul id="members" aria-label="房间成员" tabindex="0"></ul>
+        <section id="approvals" hidden><h3>加入申请</h3><ul id="pending"></ul></section>
+        <section id="outside-messages" hidden><h3>组外留言</h3><ul id="contacts" aria-label="组外留言" tabindex="0"></ul></section>
+      </aside>
+      <section class="panel transfers">
+        <header class="section-head"><h2>文件</h2><span id="file-limit" class="muted"></span></header>
+        <form id="file-form">
+          <label for="file" class="sr-only">选择文件</label>
+          <input id="file" type="file" required>
+          <button id="send-file" type="submit">组播发送</button>
+          <progress id="upload-progress" aria-label="本地上传进度" hidden></progress>
+        </form>
+        <ul id="files" aria-label="文件传输"></ul>
+      </section>
+    </div>
+    <p id="notice" role="alert" hidden></p>
+  </main>
+</body>
+</html>
